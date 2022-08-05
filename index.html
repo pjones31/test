@@ -73,8 +73,8 @@ $.getJSON("CPS_Locations.geojson",function(data){
 	// variable
 		var gradesColor;
 		var gradesServed = feature.properties.grade_cat;
-		if ( gradesServed = "HS" ) gradesColor = "green";
-		else gradesColor == "red";	
+		if ( gradesServed == "HS" ) gradesColor = "green";
+		else gradesColor = "red";	
 		return new L.CircleMarker(latlng,
 			{ 	radius: 5,
 				fillOpacity: 1,
@@ -82,10 +82,12 @@ $.getJSON("CPS_Locations.geojson",function(data){
 				color: "orange",
 				weight: .7,
 			});
-			},	
+			},	// add popups
+				onEachFeature: function(feature, layer){
+					layer.bindPopup( "Center:" + feature.properties.short_name )
 				}
 	}).addTo(map);
-
+});
 
 
 	
