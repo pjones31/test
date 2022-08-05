@@ -65,7 +65,7 @@
 }).addTo(map);
 
 
-$.getJSON("CPS_Locations.geojson",function(data){
+$.getJSON ("CPS_Locations.geojson",function)(data){
 // load geojson layer
 	L.geoJson(data, {
 		// add a property - pointToLayer
@@ -84,7 +84,7 @@ $.getJSON("CPS_Locations.geojson",function(data){
 			});
 			},	// add popups
 				onEachFeature: function(feature, layer){
-					layer.bindPopup( "Center:" + "feature.properties.short_name" )
+					layer.bindPopup( "Center:" + feature.properties.short_name )
 				}
 	}).addTo(map);
 });
