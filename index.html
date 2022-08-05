@@ -84,7 +84,7 @@ $.getJSON("CPS_Locations.geojson",function(data){
 			});
 			},	// add popups
 				onEachFeature: function(feature, layer){
-					layer.bindPopup( "Center:" + feature.properties.short_name )
+					layer.bindPopUp( "Center:" + feature.properties.short_name )
 				}
 	}).addTo(map);
 });
