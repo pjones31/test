@@ -65,7 +65,7 @@
 }).addTo(map);
 
 
-$.getJSON ("CPS_Locations.geojson",function(data){
+$.getJSON("CPS_Locations.geojson",function(data){
 // load geojson layer
 	L.geoJson(data, {
 		// add a property - pointToLayer
@@ -73,9 +73,9 @@ $.getJSON ("CPS_Locations.geojson",function(data){
 	// variable
 		var gradesColor;
 		var gradesServed = feature.properties.grade_cat;
-		if ( gradesServed == "ES" ) gradesColor = "green";
+		if ( gradesServed == "HS" ) gradesColor = "green";
 		else gradesColor = "red";	
-		return new L.CircleMarker(latlng,
+		return new L.CircleMarker(feature, latlng,
 			{ 	radius: 5,
 				fillOpacity: 1,
 				fillColor: gradesColor,
