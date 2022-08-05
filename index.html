@@ -69,7 +69,7 @@ $.getJSON("CPS_Locations.geojson",function(data){
 // load geojson layer
 	L.geoJson(data, {
 		// add a property - pointToLayer
-	pointToLayer: function(feature, latlng) {	
+	pointToLayer: function(feature, latlng){	
 	// variable
 		var gradesColor;
 		var gradesServed = feature.properties.grade_cat;
