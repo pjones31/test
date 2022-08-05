@@ -76,9 +76,9 @@ $.getJSON("CPS_Locations.geojson",function(data){
 		if ( gradesServed == "HS" ) gradesColor = "green";
 		else gradesColor = "red";	
 		return new L.CircleMarker(latlng,
-			{ 	radius: 3,
+			{ 	radius: 5,
 				fillOpacity: 1,
-				fillColor: gradesServed,
+				fillColor: gradesColor,
 				color: "orange",
 				weight: .7,
 			});
