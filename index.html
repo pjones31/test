@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+
+	<head>
+
+		<title>CPS in proximity to vulnerable COVID areas in the City</title>
+		<link rel="stylesheet" href="style.css">
+	<!-- Google font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<!-- Second Google font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Koulen&display=swap" rel="stylesheet">
+
+<!-- Leaflet Code -->
+ 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+   		integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+   		crossorigin=""/>
+
+   		 <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+   		integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+   		crossorigin=""></script>
+
+   		<!-- Leaflet basemap -->
+   		 <script src="http://unpkg.com/leaflet@latest/dist/leaflet.js"></script>
+ 		 <script src="js/leaflet-providers.js"></script>
+
+ 		<!--  javascript text -->
+ 		<script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+	</head>
+
+	<body> 
+
+	<div class="intro1">
+		<h1>Chicago Public Schools & vulnerable COVID zip codes </h1>
+		<div class="intro2">
+		<h2>Exploring CPS locations with zip codes that are vulnerable to COVID</h2>
+		<!-- Google font -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
+		</div>
+
+	<div class="info">
+		<p>There are 649 Chicago Public Schools in the City of Chicago. Nearly half of CPS grade schools reside in zip codes that are vulnerable to COVID. Burdening teachers, CPS administrators, and guardians.</p>
+		<p>Learn more about health and wellness at CPS <a href="https://www.cps.edu/services-and-supports/health-and-wellness/">here</a></p></div>
+
+</div>
+
+	<div id="map"></div>
+		
+<script> 
+	// intialize map
+	var map=L.map('map').setView([41.965, -87.635], 11);
+
+	// add basemap
+	var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+}).addTo(map);
+
+
+$.getJSON("CPS_Locations.geojson",function(data){
+// load geojson layer
+	L.geoJson(data, {
+		// add a property - pointToLayer
+	pointToLayer: function(feature, latlng) {	
+	// variable
+		var gradesColor;
+		var gradesServed = feature.properties.grade_cat;
+		if ( gradesServed == "HS" ) gradesColor = "green";
+		else gradesColor = "red";	
+		return new L.CircleMarker(latlng,
+			{ 	radius: 3,
+				fillOpacity: 1,
+				fillColor: gradesColor,
+				color: "orange",
+				weight: .7,
+			});
+			},	// add popups
+				onEachFeature: function(feature, layer){
+					layer.bindPopup( "Center:" + feature.properties.short_name )
+				}
+	}).addTo(map);
+});
+
+
+	
+</script>
+
+	</body>
+</html>
